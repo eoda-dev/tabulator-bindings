@@ -51,7 +51,7 @@
       options.data = data;
       this._container = container;
       console.log("columns", options.columns);
-      if (data !== null && options.columns === null) {
+      if (data !== null && options.columns == null) {
         options.autoColumns = true;
       }
       this._table = new Tabulator(this._container, options);
