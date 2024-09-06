@@ -28,7 +28,10 @@ class TabulatorWidget {
     options.data = data;
     this._container = container;
     console.log("columns", options.columns);
-    if (options.columns == null) options.autoColumns = true;
+    if (data !== null && options.columns === null) {
+      options.autoColumns = true;
+    }
+
     this._table = new Tabulator(this._container, options);
     if (typeof Shiny === "object") {
       addEventListeners(this._table, this._container);
