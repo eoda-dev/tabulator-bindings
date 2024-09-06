@@ -8,7 +8,15 @@ function tabulatorFactory(widgetElement, width, height) {
     if (payload.options === null) {
       payload.options = {};
     }
-    const widget = new TabulatorWidget(widgetElement, payload.data, payload.options);
+
+    let data = null;
+    if (payload.options.spreadsheet === true) {
+      payload.options.spreadsheetData = payload.data;
+    } else {
+      data = HTMLWidgets.dataframeToD3(payload.data);
+    }
+
+    const widget = new TabulatorWidget(widgetElement, data, payload.options);
     table = widget.getTable();
   }
 
