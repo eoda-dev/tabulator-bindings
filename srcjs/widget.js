@@ -32,6 +32,10 @@ class TabulatorWidget {
       options.autoColumns = true;
     }
 
+    if (options.spreadsheet && options.spreadsheetData == null) {
+      options.spreadsheetData = [];
+    }
+
     this._table = new Tabulator(this._container, options);
     if (typeof Shiny === "object") {
       addEventListeners(this._table, this._container);
