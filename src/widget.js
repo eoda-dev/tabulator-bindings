@@ -3,8 +3,13 @@ import addEventListeners from "./events";
 function run_calls(el, table, calls) {
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
-      console.log("custom call");
-      Shiny.onInputChange(`${el.id}_data`, table.getData());
+      const inputName = `${el.id}_data`;
+      console.log("custom call", inputName);
+      Shiny.setInputValue(
+        inputName,
+        { data: table.getData() },
+        { priority: "event" },
+      );
       return;
     }
 
@@ -21,9 +26,11 @@ function run_calls(el, table, calls) {
     if (method_name === "getSpreadsheetData") {
       const inputName = `${el.id}_spreadsheet_data`;
       console.log("custom call", inputName);
-      Shiny.setInputValue(inputName, table.getSheetData(), {
-        priority: "event",
-      });
+      Shiny.setInputValue(
+        inputName,
+        { data: table.getSheetData() },
+        { priority: "event" },
+      );
       return;
     }
 
