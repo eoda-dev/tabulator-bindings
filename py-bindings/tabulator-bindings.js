@@ -75,36 +75,24 @@
     }
   };
 
-  // src/index-r.js
-  function tabulatorFactory(widgetElement, width, height) {
-    let table = null;
-    function renderValue(payload) {
-      console.log(payload);
-      if (payload.stylesheetText) {
-        document.head.insertAdjacentHTML(
-          "beforeend",
-          `<style>${payload.stylesheetText}</style>`
-        );
-      }
-      if (payload.options === null) {
-        payload.options = {};
-      }
-      let data = null;
-      if (payload.options.spreadsheet === true) {
-        payload.options.spreadsheetData = payload.data;
-      } else {
-        data = HTMLWidgets.dataframeToD3(payload.data);
-      }
-      const widget = new TabulatorWidget(widgetElement, data, payload.options);
-      table = widget.getTable();
+  // src/index.js
+  var TabulatorOutputBinding = class extends Shiny.OutputBinding {
+    find(scope) {
+      return scope.find(".shiny-tabulator-output");
     }
-    function resize(width2, height2) {
+    renderValue(el, payload) {
+      console.log("payload", payload);
+      const widget = new TabulatorWidget(el, payload.data, payload.options);
+      const table = widget.getTable();
+      table.on("tableBuilt", function() {
+        if (payload.options.columnUpdates != null) {
+          console.log("column updates", payload.options.columnUpdates);
+        }
+      });
     }
-    return { renderValue, resize };
-  }
-  HTMLWidgets.widget({
-    name: "rtabulator",
-    type: "output",
-    factory: tabulatorFactory
-  });
+  };
+  Shiny.outputBindings.register(
+    new TabulatorOutputBinding(),
+    "shiny-tabulator-output"
+  );
 })();
