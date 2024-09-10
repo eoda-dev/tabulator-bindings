@@ -18,6 +18,15 @@ function run_calls(el, table, calls) {
       return;
     }
 
+    if (method_name === "getSpreadsheetData") {
+      const inputName = `${el.id}_spreadsheet_data`;
+      console.log("custom call", inputName);
+      Shiny.setInputValue(inputName, table.getSheetData(), {
+        priority: "event",
+      });
+      return;
+    }
+
     console.log(method_name, options);
     table[method_name](...options);
   });
