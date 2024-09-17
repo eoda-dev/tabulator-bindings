@@ -4,6 +4,8 @@ import { convertToDataFrame } from "./utils";
 function run_calls(el, table, calls) {
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
+      // TODO: This input name is only usable in R,
+      // we need to pass meta data to the table
       const inputName = `${el.id}_get_data:rtabulator.data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
@@ -24,8 +26,9 @@ function run_calls(el, table, calls) {
       return;
     }
 
-    if (method_name === "getSpreadsheetData") {
-      const inputName = `${el.id}_spreadsheet_data`;
+    if (method_name === "getSheetData") {
+      // TODO: This input name is only usable in R, see above
+      const inputName = `${el.id}_get_sheet_data:rtabulator.sheet_data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
         inputName,
