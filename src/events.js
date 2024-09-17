@@ -16,8 +16,10 @@ export default function addEventListeners(table, el) {
   });
 
   table.on("cellEdited", function (cell) {
-    const inputName = `${el.id}_row_edited`;
+    const inputName = `${el.id}_cell_edited`;
     console.log(inputName, cell.getData());
+    // cell.getData() returns complete row data,
+    // cell.getValue() returns cell value only
     Shiny.onInputChange(inputName, cell.getData());
   });
 
