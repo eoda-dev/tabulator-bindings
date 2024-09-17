@@ -4,7 +4,7 @@ import { convertToDataFrame } from "./utils";
 function run_calls(el, table, calls) {
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
-      const inputName = `${el.id}_get_data`;
+      const inputName = `${el.id}_get_data:rtabulator.data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
         inputName,
