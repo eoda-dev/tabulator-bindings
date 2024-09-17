@@ -1,3 +1,5 @@
+import { convertToDataFrame } from "./utils";
+
 export default function addEventListeners(table, el) {
   // console.log("table", table);
   table.on("rowClick", function (e, row) {
@@ -7,10 +9,10 @@ export default function addEventListeners(table, el) {
   });
 
   table.on("rowClick", (e, row) => {
-    const inputName = `${el.id}_rows_selected`;
+    const inputName = `${el.id}_rows_selected:rtabulator:data`;
     const data = table.getSelectedRows().map((row) => row.getData());
     console.log(inputName, data);
-    Shiny.onInputChange(inputName, data);
+    Shiny.onInputChange(inputName, { data: convertToDataFrame(data) });
   });
 
   table.on("cellEdited", function (cell) {
