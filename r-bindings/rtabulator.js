@@ -18,7 +18,7 @@
       Shiny.onInputChange(inputName, row.getData());
     });
     table.on("rowClick", (e, row) => {
-      const inputName = `${el.id}_rows_selected:rtabulator:data`;
+      const inputName = `${el.id}_rows_selected:rtabulator.data`;
       const data = table.getSelectedRows().map((row2) => row2.getData());
       console.log(inputName, data);
       Shiny.onInputChange(inputName, { data: convertToDataFrame(data) });
