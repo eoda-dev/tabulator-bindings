@@ -1,7 +1,11 @@
 import addEventListeners from "./events";
 import { convertToDataFrame } from "./utils";
 
-function run_calls(el: HTMLElement, table: any, calls: [string, any][]) {
+function run_calls(
+  el: HTMLElement,
+  table: TabulatorTable,
+  calls: [string, any][],
+) {
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
       // TODO: This input name is only usable in R,
@@ -75,7 +79,7 @@ class TabulatorWidget {
     });
   }
 
-  getTable(): any {
+  getTable(): TabulatorTable {
     return this._table;
   }
 
