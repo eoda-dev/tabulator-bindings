@@ -1,4 +1,4 @@
-// import addEventListeners from "./events";
+import addEventListeners from "./events";
 import { convertToDataFrame } from "./utils";
 
 function run_calls(el: HTMLElement, table: any, calls: [string, any][]) {
@@ -18,8 +18,8 @@ function run_calls(el: HTMLElement, table: any, calls: [string, any][]) {
 
     if (method_name === "deleteSelectedRows") {
       console.log("custom call");
-      const rows = table.getSelectedRows();
-      rows.forEach((row: any) => {
+      const rows: TabulatorRow[] = table.getSelectedRows();
+      rows.forEach((row) => {
         console.log(row.getIndex());
         table.deleteRow(row.getIndex());
       });
@@ -45,7 +45,7 @@ function run_calls(el: HTMLElement, table: any, calls: [string, any][]) {
 
 class TabulatorWidget {
   _container: HTMLElement;
-  _table: any;
+  _table: TabulatorTable;
 
   constructor(container: HTMLElement, data: any, options: any) {
     options.data = data;
@@ -61,7 +61,7 @@ class TabulatorWidget {
 
     this._table = new Tabulator(this._container, options);
     if (typeof Shiny === "object") {
-      // addEventListeners(this._table, this._container);
+      addEventListeners(this._table, this._container);
       this._addShinyMessageHandler();
     }
   }

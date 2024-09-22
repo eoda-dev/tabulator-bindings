@@ -3,9 +3,25 @@ const Shiny = (window as any).Shiny;
 const HTMLWidgets = (window as any).HTMLWidgets;
 
 type payload = {
-  data: any;
-  options: any;
-  bindingOptions: any;
-  calls: any;
-  stylesheetText: string;
+    data: any;
+    options: any;
+    bindingOptions: any;
+    calls: any;
+    stylesheetText: string;
 };
+
+type TabulatorCell = {
+    getValue: Function;
+    getData: Function;
+}
+
+type TabulatorRow = {
+    getIndex: Function;
+    getData: Function;
+}
+
+// type getSelectedRows = () => TabulatorRow[];
+
+type TabulatorTable = {
+    getSelectedRows: Function
+}
