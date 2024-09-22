@@ -1,6 +1,9 @@
 import { convertToDataFrame } from "./utils";
 
-export default function addEventListeners(table: TabulatorTable, el: HTMLElement) {
+export default function addEventListeners(
+  table: TabulatorTable,
+  el: HTMLElement,
+) {
   // console.log("table", table);
   table.on("rowClick", function (e: Event, row: TabulatorRow) {
     const inputName = `${el.id}_row_clicked`;
