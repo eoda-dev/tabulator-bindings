@@ -2,39 +2,13 @@
 (() => {
   // built/utils.js
   function convertToDataFrame(data) {
-    res = {};
+    const res = {};
     if (data.length === 0) {
       return res;
     }
-    keys = Object.keys(data[0]);
+    const keys = Object.keys(data[0]);
     keys.forEach((key) => res[key] = data.map((item) => item[key]));
     return res;
-  }
-
-  // built/events.js
-  function addEventListeners(table, el) {
-    table.on("rowClick", function(e, row) {
-      const inputName = `${el.id}_row_clicked`;
-      console.log(inputName, row.getData());
-      Shiny.onInputChange(inputName, row.getData());
-    });
-    table.on("rowClick", (e, row) => {
-      const inputName = `${el.id}_rows_selected:rtabulator.data`;
-      const data = table.getSelectedRows().map((row2) => row2.getData());
-      console.log(inputName, data);
-      Shiny.onInputChange(inputName, { data: convertToDataFrame(data) });
-    });
-    table.on("cellEdited", function(cell) {
-      const inputName = `${el.id}_cell_edited`;
-      console.log(inputName, cell.getData());
-      Shiny.onInputChange(inputName, cell.getData());
-    });
-    table.on("dataFiltered", function(filters, rows) {
-      const inputName = `${el.id}_data_filtered:rtabulator.data`;
-      const data = rows.map((row) => row.getData());
-      console.log(inputName, data);
-      Shiny.onInputChange(inputName, { data: convertToDataFrame(data) });
-    });
   }
 
   // built/widget.js
@@ -78,7 +52,6 @@
       }
       this._table = new Tabulator(this._container, options);
       if (typeof Shiny === "object") {
-        addEventListeners(this._table, this._container);
         this._addShinyMessageHandler();
       }
     }
@@ -91,6 +64,9 @@
     }
     getTable() {
       return this._table;
+    }
+    getId() {
+      return this._container.id;
     }
   };
 
