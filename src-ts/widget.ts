@@ -8,9 +8,10 @@ function run_calls(
   const table = tabulatorWidget.getTable();
   const elementId = tabulatorWidget.getElementId();
   const bindingLang = tabulatorWidget.getBindingLang();
+  console.log("binding lang", bindingLang);
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
-      const inputName = bindingLang == "r" ? `${elementId}_data:rtabulator.data` : `${elementId}_data`;
+      const inputName = bindingLang === "r" ? `${elementId}_data:rtabulator.data` : `${elementId}_data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
         inputName,
@@ -31,7 +32,7 @@ function run_calls(
     }
 
     if (method_name === "getSheetData") {
-      const inputName = bindingLang == "r" ? `${elementId}_sheet_data:rtabulator.sheet_data` : `${elementId}_sheet_data`;
+      const inputName = bindingLang === "r" ? `${elementId}_sheet_data:rtabulator.sheet_data` : `${elementId}_sheet_data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
         inputName,
