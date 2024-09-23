@@ -2,11 +2,15 @@ const Tabulator = (window as any).Tabulator;
 const Shiny = (window as any).Shiny;
 const HTMLWidgets = (window as any).HTMLWidgets;
 
-type payload = {
+type BindingOptions = {
+  lang: string;
+};
+
+type Payload = {
   data: any;
   options: any;
-  bindingOptions: any;
-  calls: any;
+  bindingOptions: BindingOptions;
+  calls: [string, any][];
   stylesheetText: string;
 };
 

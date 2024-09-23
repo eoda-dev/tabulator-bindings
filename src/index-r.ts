@@ -3,7 +3,7 @@ import { TabulatorWidget } from "./widget";
 function tabulatorFactory(widgetElement: HTMLElement, width: any, height: any) {
   let table: any = null;
 
-  function renderValue(payload: payload) {
+  function renderValue(payload: Payload) {
     console.log(payload);
     if (payload.stylesheetText) {
       document.head.insertAdjacentHTML(

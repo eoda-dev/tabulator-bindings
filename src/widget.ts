@@ -73,7 +73,7 @@ class TabulatorWidget {
   _addShinyMessageHandler() {
     // This must be inside table.on("tableBuilt")
     const messageHandlerName = `tabulator-${this._container.id}`;
-    Shiny.addCustomMessageHandler(messageHandlerName, (payload: payload) => {
+    Shiny.addCustomMessageHandler(messageHandlerName, (payload: Payload) => {
       console.log(payload);
       run_calls(this._container, this._table, payload.calls);
     });
