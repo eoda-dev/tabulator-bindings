@@ -17,7 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-r": "esbuild src/index-r.js --bundle --minify --outfile=r-bindings/rtabulator.js",
     "build-r-dev": "esbuild src/index-r.js --bundle --outfile=r-bindings/rtabulator.js",
-    "build-r-dev-ts": "tsc --build && esbuild built/index-r.js --bundle --outfile=r-bindings/rtabulator-ts.js"
+    "build-r-dev-ts": "tsc --build && esbuild built/index-r.js --bundle --outfile=r-bindings/rtabulator.js"
   },
   "author": "Stefan Kuethe",
   "license": "MIT"
