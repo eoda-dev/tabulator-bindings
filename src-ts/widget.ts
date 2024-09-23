@@ -50,10 +50,12 @@ function run_calls(
 class TabulatorWidget {
   _container: HTMLElement;
   _table: TabulatorTable;
+  _bindingOptions: BindingOptions;
 
-  constructor(container: HTMLElement, data: any, options: any) {
+  constructor(container: HTMLElement, data: any, options: any, bindingOptions: BindingOptions) {
     options.data = data;
     this._container = container;
+    this._bindingOptions = bindingOptions;
     console.log("columns", options.columns);
     if (data !== null && options.columns == null) {
       options.autoColumns = true;
@@ -85,6 +87,10 @@ class TabulatorWidget {
 
   getId(): string {
     return this._container.id;
+  }
+
+  getBindingLang(): string {
+    return this._bindingOptions.lang;
   }
 }
 

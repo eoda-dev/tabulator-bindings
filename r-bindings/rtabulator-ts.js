@@ -66,9 +66,10 @@
     });
   }
   var TabulatorWidget = class {
-    constructor(container, data, options) {
+    constructor(container, data, options, bindingOptions) {
       options.data = data;
       this._container = container;
+      this._bindingOptions = bindingOptions;
       console.log("columns", options.columns);
       if (data !== null && options.columns == null) {
         options.autoColumns = true;
@@ -95,6 +96,9 @@
     getId() {
       return this._container.id;
     }
+    getBindingLang() {
+      return this._bindingOptions.lang;
+    }
   };
 
   // built/index-r.js
@@ -114,7 +118,7 @@
       } else {
         data = HTMLWidgets.dataframeToD3(payload.data);
       }
-      const widget = new TabulatorWidget(widgetElement, data, payload.options);
+      const widget = new TabulatorWidget(widgetElement, data, payload.options, payload.bindingOptions);
       table = widget.getTable();
     }
     function resize(width2, height2) {

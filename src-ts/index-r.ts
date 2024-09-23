@@ -23,7 +23,7 @@ function tabulatorFactory(widgetElement: HTMLElement, width: any, height: any) {
       data = HTMLWidgets.dataframeToD3(payload.data);
     }
 
-    const widget = new TabulatorWidget(widgetElement, data, payload.options);
+    const widget = new TabulatorWidget(widgetElement, data, payload.options, payload.bindingOptions);
     table = widget.getTable();
   }
 
