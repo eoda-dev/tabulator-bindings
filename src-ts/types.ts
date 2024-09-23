@@ -15,21 +15,22 @@ type Payload = {
 };
 
 type TabulatorCell = {
-  getValue: Function;
   getData: Function;
+  getValue: Function;
 };
 
 type TabulatorRow = {
-  getIndex: Function;
   getData: Function;
+  getIndex: Function;
 };
 
 // type getSelectedRows = () => TabulatorRow[];
 
 type TabulatorTable = {
   [index: string]: Function;
+  deleteRow: Function;
   getData: Function;
   getSelectedRows: Function;
-  deleteRow: Function;
   getSheetData: Function;
+  on: Function;
 };
