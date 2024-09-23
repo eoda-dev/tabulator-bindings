@@ -2,15 +2,15 @@ import addEventListeners from "./events";
 import { convertToDataFrame } from "./utils";
 
 function run_calls(
-  el: HTMLElement,
-  table: TabulatorTable,
+  tabulatorWidget: TabulatorWidget,
   calls: [string, any][],
 ) {
+  const table = tabulatorWidget.getTable();
+  const elementId = tabulatorWidget.getElementId();
+  const bindingLang = tabulatorWidget.getBindingLang();
   calls.forEach(([method_name, options]) => {
     if (method_name === "getData") {
-      // TODO: This input name is only usable in R,
-      // we need to pass meta data to the table
-      const inputName = `${el.id}_data:rtabulator.data`;
+      const inputName = bindingLang == "r" ? `${elementId}_data:rtabulator.data` : `${elementId}_data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
         inputName,
@@ -31,8 +31,7 @@ function run_calls(
     }
 
     if (method_name === "getSheetData") {
-      // TODO: This input name is only usable in R, see above
-      const inputName = `${el.id}_sheet_data:rtabulator.sheet_data`;
+      const inputName = bindingLang == "r" ? `${elementId}_sheet_data:rtabulator.sheet_data` : `${elementId}_sheet_data`;
       console.log("custom call", inputName);
       Shiny.setInputValue(
         inputName,
@@ -77,7 +76,7 @@ class TabulatorWidget {
     const messageHandlerName = `tabulator-${this._container.id}`;
     Shiny.addCustomMessageHandler(messageHandlerName, (payload: Payload) => {
       console.log(payload);
-      run_calls(this._container, this._table, payload.calls);
+      run_calls(this, payload.calls);
     });
   }
 
@@ -85,7 +84,7 @@ class TabulatorWidget {
     return this._table;
   }
 
-  getId(): string {
+  getElementId(): string {
     return this._container.id;
   }
 
