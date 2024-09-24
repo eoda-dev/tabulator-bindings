@@ -12,25 +12,29 @@
   }
 
   // built/events.js
-  function addEventListeners(table, el) {
+  function addEventListeners(tabulatorWidget) {
+    const table = tabulatorWidget.getTable();
+    const elementId = tabulatorWidget.getElementId();
+    const bindingLang = tabulatorWidget.getBindingLang();
+    console.log("binding lang", bindingLang);
     table.on("rowClick", function(e, row) {
-      const inputName = `${el.id}_row_clicked`;
+      const inputName = `${elementId}_row_clicked`;
       console.log(inputName, row.getData());
       Shiny.onInputChange(inputName, row.getData());
     });
     table.on("rowClick", (e, row) => {
-      const inputName = `${el.id}_rows_selected:rtabulator.data`;
+      const inputName = bindingLang === "r" ? `${elementId}_data:rtabulator.data` : `${elementId}_data`;
       const data = table.getSelectedRows().map((row2) => row2.getData());
       console.log(inputName, data);
       Shiny.onInputChange(inputName, { data: convertToDataFrame(data) });
     });
     table.on("cellEdited", function(cell) {
-      const inputName = `${el.id}_cell_edited`;
+      const inputName = `${elementId}_cell_edited`;
       console.log(inputName, cell.getData());
       Shiny.onInputChange(inputName, cell.getData());
     });
     table.on("dataFiltered", function(filters, rows) {
-      const inputName = `${el.id}_data_filtered:rtabulator.data`;
+      const inputName = bindingLang === "r" ? `${elementId}_data:rtabulator.data` : `${elementId}_data`;
       const data = rows.map((row) => row.getData());
       console.log(inputName, data);
       Shiny.onInputChange(inputName, { data: convertToDataFrame(data) });
@@ -83,7 +87,7 @@
       }
       this._table = new Tabulator(this._container, options);
       if (typeof Shiny === "object") {
-        addEventListeners(this._table, this._container);
+        addEventListeners(this);
         this._addShinyMessageHandler();
       }
     }
