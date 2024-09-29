@@ -7,14 +7,18 @@
   },
   "devDependencies": {
     "esbuild": "^0.20.0",
-    "prettier": "^3.2.4"
+    "prettier": "^3.2.4",
+    "typescript": "^5.6.2"
   },
   "scripts": {
-    "build": "esbuild srcjs/index.js --bundle --minify --outfile=pytabulator/srcjs/tabulator-bindings.js",
-    "build-dev": "esbuild srcjs/index.js --bundle --outfile=pytabulator/srcjs/tabulator-bindings.js",
-    "prettier": "prettier srcjs --write",
+    "build-py": "esbuild src/index.js --bundle --minify --outfile=py-bindings/tabulator-bindings.js",
+    "build-py-dev": "esbuild src/index.js --bundle --outfile=py-bindings/tabulator-bindings.js",
+    "prettier": "prettier src --write",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-r-dev": "esbuild srcjs/index-r.js --bundle --outfile=r-bindings/rtabulator.js"
+    "build-r": "esbuild src/index-r.js --bundle --minify --outfile=r-bindings/rtabulator.js",
+    "build-r-dev": "esbuild src/index-r.js --bundle --outfile=r-bindings/rtabulator.js",
+    "build-r-dev-ts": "tsc --build && esbuild built/index-r.js --bundle --outfile=r-bindings/rtabulator.js",
+    "build-py-dev-ts": "tsc --build && esbuild built/index-py.js --bundle --outfile=py-bindings/pytabulator.js"
   },
   "author": "Stefan Kuethe",
   "license": "MIT"
